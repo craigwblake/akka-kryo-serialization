@@ -34,8 +34,6 @@ object MinimalBuild extends Build {
 	publishTo := Some(Resolver.file("file",  new File("../repo"))),
 	checksums in publish := Nil,
 	checksums in publishLocal := Nil,
-    // disable using the Scala version in output paths and artifacts
-    crossPaths := false,
     libraryDependencies += "com.typesafe.akka" %% "akka-remote" % "2.1.0" cross CrossVersion.binary,
     libraryDependencies += "com.typesafe.akka" %% "akka-kernel" % "2.1.0" cross CrossVersion.binary,
     libraryDependencies += "com.esotericsoftware.kryo" % "kryo" % "2.20",
