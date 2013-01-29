@@ -20,24 +20,25 @@ import com.typesafe.sbt.osgi.SbtOsgi.{ OsgiKeys, osgiSettings, defaultOsgiSettin
 
 object MinimalBuild extends Build {
 
-  lazy val buildVersion = "0.2-SNAPSHOT"
+  lazy val buildVersion = "0.2"
 
   lazy val typesafe = "Typesafe Repository" at "http://repo.typesafe.com/typesafe/releases/"
   lazy val typesafeSnapshot = "Typesafe Snapshots Repository" at "http://repo.typesafe.com/typesafe/snapshots/"
 
   lazy val root = Project(id = "akka-kryo-serialization", base = file("."), settings = Project.defaultSettings).settings(
     version := buildVersion,
+	scalaVersion := "2.10.0",
     organization := "com.romix.akka",
     resolvers += typesafe,
     resolvers += typesafeSnapshot,
     publishArtifact in packageDoc := false,
     // disable using the Scala version in output paths and artifacts
     crossPaths := false,
-    libraryDependencies += "com.typesafe.akka" % "akka-remote" % "2.0",
-    libraryDependencies += "com.typesafe.akka" % "akka-kernel" % "2.0",
-    libraryDependencies += "com.esotericsoftware.kryo" % "kryo" % "2.18-SNAPSHOT",
+    libraryDependencies += "com.typesafe.akka" %% "akka-remote" % "2.1.0" cross CrossVersion.binary,
+    libraryDependencies += "com.typesafe.akka" %% "akka-kernel" % "2.1.0" cross CrossVersion.binary,
+    libraryDependencies += "com.esotericsoftware.kryo" % "kryo" % "2.20",
     libraryDependencies += "com.novocode" % "junit-interface" % "0.8" % "test"
-    )
+  )
     .settings(defaultOsgiSettings: _*)
     .settings(
       OsgiKeys.exportPackage := Seq("com.romix.akka.serialization.kryo;version\"0.2.0.1\""),
